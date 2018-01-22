@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Nathaniel Huey.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -49,10 +49,24 @@ def draw_upside_down_wall(rectangle, n, window):
     and n is nonnegative.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     Some tests are already written for you (above).
     # ------------------------------------------------------------------
+    count = 0
+    for k in range(n):
+        rectangle1 = rg.Rectangle(rectangle.corner_1, rectangle.corner_2)
+        rectangle1.attach_to(window)
+        window.render(.15)
+        rectangle1_initial = rectangle.clone()
 
+        for j in range(count):
+            rectangle1 = rg.Rectangle(rg.Point(rectangle1.corner_1.x + rectangle.get_width(),rectangle1.corner_1.y), rg.Point(rectangle1.corner_2.x + rectangle.get_width(), rectangle1.corner_2.y))
+            rectangle1.attach_to(window)
+            window.render(.15)
+        count +=1
+        rectangle.corner_1 = rg.Point(rectangle.corner_1.x - rectangle1.get_width()/2, rectangle.corner_1.y - rectangle1.get_height())
+        rectangle.corner_2 = rg.Point(rectangle.corner_2.x - rectangle1.get_width()/2, rectangle.corner_2.y - rectangle1.get_height())
+    window.continue_on_mouse_click()
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
